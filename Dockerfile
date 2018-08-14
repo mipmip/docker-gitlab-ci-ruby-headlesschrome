@@ -14,12 +14,13 @@ RUN apt-get update -y && \
   freetds-dev \
   libnss3 libxi6 libgconf-2-4
 
-# install chrome
-RUN apt-get update -y && \
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-	dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
+RUN mkdir -p /usr/local/bundle/bin/
 
 # install chromedriver and place it ib path
-RUN wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip && \ 
+RUN wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip && \
 	unzip chromedriver_linux64.zip && \
 	mv chromedriver /usr/local/bundle/bin/
+
+ADD Gemfile /Gemfile
+
+RUN bundle install
