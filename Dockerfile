@@ -14,12 +14,27 @@ RUN apt-get update -y && \
   freetds-dev \
   libnss3 libxi6 libgconf-2-4
 
-RUN mkdir -p /usr/local/bundle/bin/
+# Install deps + add Chrome Stable + purge all the things
+RUN apt-get update && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    --no-install-recommends \
+    && curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update && apt-get install -y \
+    google-chrome-stable \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-# install chromedriver and place it ib path
+#RUN mkdir -p /usr/local/bundle/bin/
+
+RUN echo $PATH
+# install chromedriver and place it in path
 RUN wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip && \
 	unzip chromedriver_linux64.zip && \
-	mv chromedriver /usr/local/bundle/bin/
+	mv chromedriver /usr/local/bin/
 
 ADD Gemfile /Gemfile
 
