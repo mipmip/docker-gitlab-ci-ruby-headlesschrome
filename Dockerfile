@@ -28,14 +28,16 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-#RUN mkdir -p /usr/local/bundle/bin/
-
-RUN echo $PATH
 # install chromedriver and place it in path
 RUN wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip && \
 	unzip chromedriver_linux64.zip && \
 	mv chromedriver /usr/local/bin/
 
+# pre-install used gems
 ADD Gemfile /Gemfile
-
 RUN bundle install
+
+RUN apt-get update \
+  && apt-get install -y mysql-server mysql-client default-libmysqlclient-dev --no-install-recommends \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
