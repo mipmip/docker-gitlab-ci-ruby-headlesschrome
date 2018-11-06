@@ -25,10 +25,6 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# pre-install used gems
-ADD Gemfile /Gemfile
-RUN echo v1
-RUN bundle install
 
 ENV PANDOC_VER=2.2.2.1
 RUN apt-get update && apt-get -y --no-install-recommends install \
@@ -58,4 +54,8 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+## pre-install used gems
+#ADD Gemfile /Gemfile
+#RUN echo v1
+#RUN bundle install
 
