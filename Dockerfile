@@ -15,7 +15,7 @@ RUN apt-get update -y && \
   libnss3 libxi6 libgconf-2-4
 
 # install chromedriver and place it in path
-RUN wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip && \
+RUN wget https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_linux64.zip && \
 	unzip chromedriver_linux64.zip && \
 	mv chromedriver /usr/local/bin/
 
