@@ -54,6 +54,8 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get -y install ssh-client
+
 ## pre-install used gems
 #ADD Gemfile /Gemfile
 #RUN echo v1
